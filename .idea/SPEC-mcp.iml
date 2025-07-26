@@ -3,6 +3,8 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+      <excludeFolder url="file://$MODULE_DIR$/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/mcp_spec.egg-info" />
     </content>
     <orderEntry type="jdk" jdkName="uv (SPEC-mcp)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
