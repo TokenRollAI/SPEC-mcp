@@ -5,7 +5,7 @@ from typing import Annotated
 from fastmcp import FastMCP
 from pydantic import Field
 
-from .prompts import *
+from mcp_spec.prompts import *
 
 mcp = FastMCP("spec_mcp")
 
@@ -33,9 +33,12 @@ ATTENTION: The relevant documents have now been created in the {specdir} directo
 
 Here’s what you need to do next:
 1. Confirm that you understand the user's requirements. If the user's description is too brief, ask for more details.
-2. Once you’re confident you’ve grasped the requirements, follow the instructions in {requirements} to generate the requirements document. The content should be written into {requirements}main.py.
-3. Proceed with the same instructions to execute the content in {design}, generating the design document. The content should be written into {design}. Follow the instructions in {attention} to generate the precautions document, with content written into {attention}.
-4. Finally, continue with the same instructions to execute the content in {todos}, generating the to-do list document. The content should be written into {todos}.
+2. Once you’re confident you’ve grasped the requirements, follow the instructions in {requirements} to generate the requirements document. The 
+content should be written into {requirements}main.py.
+3. Proceed with the same instructions to execute the content in {design}, generating the design document. The content should be written into 
+{design}. Follow the instructions in {attention} to generate the precautions document, with content written into {attention}.
+4. Finally, continue with the same instructions to execute the content in {todos}, generating the to-do list document. The content should be 
+written into {todos}.
 5. Note: Your output language must match the user's input language!
 
 The most important thing: Before writing each document, comprehensively consider the content of all preceding documents to ensure consistency.
@@ -59,7 +62,8 @@ These include:
 * todos.md: The to-do list document
 
 
-Then, you should follow the tasks listed in {specdir / 'todos.md'} and complete each one sequentially(EveryTime you complete a task, you should write the results to the corresponding document.)
+Then, you should follow the tasks listed in {specdir / 'todos.md'} and complete each one sequentially(EveryTime you complete a task, 
+you should write the results to the corresponding document.)
 Please note:
 
 Your output language should match the user's input language!
@@ -68,8 +72,30 @@ After completing each task, you should write the results to the corresponding do
 **If the user makes any changes to the requirements/design/precautions/to-do list, you should update the corresponding document accordingly.**
     """
 
+
+@mcp.tool(
+    description="tool to generate operation md from operation log"
+)
+def generate_operation_md(
+    root_path: Annotated[str, Field(
+        description="Full path of the project root directory, e.g. /Users/username/project_name (in windows, it should be "
+                    "D:/username/project_name)")]
+):
+    log_file = Path(root_path) / "_operation.json"
+    return f"""
+Follow the instructions in the following prompt to generate the operation md:
+---
+{GEN_OPERATION_MD}
+---
+The operation log is in {log_file} file.
+---
+generated md should be written to {Path(root_path) / ".spec" / "<operation_name>.md"} file.
+"""
+
+
 def main():
     mcp.run()
+
 
 if __name__ == "__main__":
     mcp.run(
