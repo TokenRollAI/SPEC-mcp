@@ -52,3 +52,11 @@ cd SPEC-mcp
 
 uv sync
 ```
+
+## Publish
+
+```bash
+uv run python -m build
+
+uv run twine upload dist/*
+```

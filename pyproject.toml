@@ -1,6 +1,6 @@
 [project]
 name = "mcp-spec"
-version = "0.1.4"
+version = "0.1.5"
 description = "mcp for spec generation"
 requires-python = ">=3.12"
 dependencies = [
