@@ -81,13 +81,12 @@ def generate_operation_md(
         description="Full path of the project root directory, e.g. /Users/username/project_name (in windows, it should be "
                     "D:/username/project_name)")]
 ):
-    log_file = Path(root_path) / "_operation.json"
     return f"""
 Follow the instructions in the following prompt to generate the operation md:
 ---
 {GEN_OPERATION_MD}
 ---
-The operation log is in {log_file} file.
+The operation log is in <current_project_root>/operation.json
 ---
 generated md should be written to {Path(root_path) / ".spec" / "<operation_name>.md"} file.
 """
