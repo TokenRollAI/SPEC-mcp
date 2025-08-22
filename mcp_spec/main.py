@@ -16,7 +16,7 @@ def generate_spec(
         description="Full path of the project root directory, e.g. /Users/username/project_name (in windows, it should be "
                     "D:/username/project_name)")],
 ):
-    specdir = Path(root_path) / ".spec"
+    specdir = Path(root_path) / ".spec" / "sop"
     specdir.mkdir(parents=True, exist_ok=True)
     requirements = specdir / "requirements.md"
     design = specdir / "design.md"
@@ -50,7 +50,7 @@ def get_spec(
     root_path: Annotated[str, Field(
         description="Full path of the project root directory, e.g. /Users/username/project_name (in windows, it should be "
                     "D:/username/project_name)")], ) -> str:
-    specdir = Path(root_path) / ".spec"
+    specdir = Path(root_path) / ".spec" / "sop"
     return f"""
 You now need to carefully read all the documents in the {specdir} directory.
 
@@ -88,7 +88,7 @@ Follow the instructions in the following prompt to generate the operation md:
 ---
 The operation log is in <current_project_root>/operation.json
 ---
-generated md should be written to {Path(root_path) / ".spec" / "<operation_name>.md"} file.
+generated md should be written to {Path(root_path) / ".spec" / "sop" / "<operation_name>.md"} file.
 """
 
 
